@@ -1,9 +1,14 @@
 # FloatingView
+[![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![](https://jitpack.io/v/hzw1199/FloatingView.svg)](https://jitpack.io/#hzw1199/FloatingView)
 
-![](/media/viewgroup.webm)
-![](/media/system.webm)
-![](/media/activity.webm)
+[中文看这里](/READMEcn.md)  
+
+![](/media/viewgroup.gif)
+![](/media/system.gif)
+![](/media/activity.gif)
 
 # Features
 
@@ -135,6 +140,9 @@ floatingView.setOnClickListener(new View.OnClickListener() {
     }
 });
 ```
+
+## Proguard
+No need to add more proguard rules, `consumerProguardFiles` has already handled library proguard rules.
 
 ## Tip
 
