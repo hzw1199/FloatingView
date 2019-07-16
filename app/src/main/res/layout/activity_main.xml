@@ -6,13 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <Button
+        android:id="@+id/btn_system"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:onClick="onClick"
+        android:text="overlay_system"
+        app:layout_constraintBottom_toTopOf="@+id/btn_activity"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_activity"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:onClick="onClick"
+        android:text="overlay_activity"
+        app:layout_constraintBottom_toTopOf="@+id/btn_viewgroup"
+        app:layout_constraintTop_toBottomOf="@id/btn_system" />
+
+    <Button
+        android:id="@+id/btn_viewgroup"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:onClick="onClick"
+        android:text="overlay_viewgroup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_activity" />
 
 </android.support.constraint.ConstraintLayout>

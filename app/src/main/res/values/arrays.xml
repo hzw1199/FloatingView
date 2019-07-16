@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gravity">
+        <item>LEFT_CENTER</item>
+        <item>LEFT_TOP</item>
+        <item>TOP_CENTER</item>
+        <item>TOP_RIGHT</item>
+        <item>RIGHT_CENTER</item>
+        <item>RIGHT_BOTTOM</item>
+        <item>BOTTOM_CENTER</item>
+        <item>LEFT_BOTTOM</item>
+        <item>CENTER</item>
+    </string-array>
+</resources>
