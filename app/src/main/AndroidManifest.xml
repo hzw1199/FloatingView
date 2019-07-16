@@ -9,9 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OverlaySystemActivity"></activity>
-        <activity android:name=".OverlayActivityActivity"></activity>
-        <activity android:name=".OverlayViewGroupActivity"></activity>
+        <activity
+            android:name=".OverlaySystemActivity"
+            android:label="OVERLAY_SYSTEM"></activity>
+        <activity
+            android:name=".OverlayActivityActivity"
+            android:label="OVERLAY_ACTIVITY"></activity>
+        <activity
+            android:name=".OverlayViewGroupActivity"
+            android:label="OVERLAY_VIEWGROUP"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

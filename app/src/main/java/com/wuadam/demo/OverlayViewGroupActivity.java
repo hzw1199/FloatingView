@@ -45,7 +45,11 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
         spinnerGravity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                gravity = FloatingViewConfig.GRAVITY.values()[position];
+                FloatingViewConfig.GRAVITY gravityTmp = FloatingViewConfig.GRAVITY.values()[position];
+                if (gravity.equals(gravityTmp)) {
+                    return;
+                }
+                gravity = gravityTmp;
                 showFloatingView();
             }
 
@@ -55,23 +59,23 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
             }
         });
 
+        lyViewGroup.post(new Runnable() {
+            @Override
+            public void run() {
+                FloatingViewConfig config = new FloatingViewConfig.Builder()
+                        .setDisplayWidth(lyViewGroup.getWidth())
+                        .setDisplayHeight(lyViewGroup.getHeight())
+                        .build();
+                floatingView = new FloatingView(OverlayViewGroupActivity.this, R.layout.view_floating, config);
+                floatingView.showOverlayViewGroup(lyViewGroup);
+                floatingView.setOnClickListener(onClickListener);
+            }
+        });
     }
 
     @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        FloatingViewConfig config = new FloatingViewConfig.Builder()
-                .setDisplayWidth(lyViewGroup.getWidth())
-                .setDisplayHeight(lyViewGroup.getHeight())
-                .build();
-        floatingView = new FloatingView(this, R.layout.view_floating, config);
-        floatingView.showOverlayViewGroup(lyViewGroup);
-        floatingView.setOnClickListener(onClickListener);
-    }
-
-    @Override
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
+    protected void onDestroy() {
+        super.onDestroy();
         if (floatingView != null) {
             floatingView.hide();
         }

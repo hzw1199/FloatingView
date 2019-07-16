@@ -42,7 +42,11 @@ public class OverlaySystemActivity extends AppCompatActivity {
         spinnerGravity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                gravity = FloatingViewConfig.GRAVITY.values()[position];
+                FloatingViewConfig.GRAVITY gravityTmp = FloatingViewConfig.GRAVITY.values()[position];
+                if (gravity.equals(gravityTmp)) {
+                    return;
+                }
+                gravity = gravityTmp;
                 showFloatingView();
             }
 
