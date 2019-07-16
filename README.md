@@ -148,6 +148,10 @@ No need to add more proguard rules, `consumerProguardFiles` has already handled 
 
 * Please check the demo before use.
 * If this project helps you, please star me.
+
+## About Me
+
+* [Home Page](https://zongheng.pro/index.html)
 * [Blog](https://blog.zongheng.pro)
 
 ## License
@@ -155,7 +159,7 @@ No need to add more proguard rules, `consumerProguardFiles` has already handled 
 ```
 The MIT License (MIT)
 
-Copyright (c) 2017 AndroidGpsStatus
+Copyright (c) 2019 FloatingView
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

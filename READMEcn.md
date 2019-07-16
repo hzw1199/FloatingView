@@ -139,7 +139,6 @@ floatingView.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
-
 ## Proguard
 无需配置混淆规则, `consumerProguardFiles` 已经配置过了
 
@@ -147,6 +146,10 @@ floatingView.setOnClickListener(new View.OnClickListener() {
 
 * 使用前请查看demo
 * 若对你有帮助请加星
+
+## About Me
+
+* [Home Page](https://zongheng.pro)
 * [Blog](https://blog.zongheng.pro)
 
 ## License
@@ -154,7 +157,7 @@ floatingView.setOnClickListener(new View.OnClickListener() {
 ```
 The MIT License (MIT)
 
-Copyright (c) 2017 AndroidGpsStatus
+Copyright (c) 2019 FloatingView
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
