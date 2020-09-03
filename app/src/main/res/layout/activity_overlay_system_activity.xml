@@ -59,10 +59,10 @@
         android:layout_marginTop="8dp"
         android:max="100" />
 
-    <android.support.v7.widget.AppCompatSpinner
+    <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinner_gravity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:entries="@array/gravity"></android.support.v7.widget.AppCompatSpinner>
+        android:entries="@array/gravity"></androidx.appcompat.widget.AppCompatSpinner>
 </LinearLayout>
