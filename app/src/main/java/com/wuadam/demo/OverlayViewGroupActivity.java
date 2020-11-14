@@ -62,13 +62,7 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
         lyViewGroup.post(new Runnable() {
             @Override
             public void run() {
-                FloatingViewConfig config = new FloatingViewConfig.Builder()
-                        .setDisplayWidth(lyViewGroup.getWidth())
-                        .setDisplayHeight(lyViewGroup.getHeight())
-                        .build();
-                floatingView = new FloatingView(OverlayViewGroupActivity.this, R.layout.view_floating, config);
-                floatingView.showOverlayViewGroup(lyViewGroup);
-                floatingView.setOnClickListener(onClickListener);
+                showFloatingView();
             }
         });
     }

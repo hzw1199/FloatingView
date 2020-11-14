@@ -61,10 +61,7 @@ public class OverlayActivityActivity extends AppCompatActivity {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        FloatingViewConfig config = new FloatingViewConfig.Builder().build();
-        floatingView = new FloatingView(this, R.layout.view_floating, config);
-        floatingView.showOverlayActivity();
-        floatingView.setOnClickListener(onClickListener);
+        showFloatingView();
     }
 
     @Override

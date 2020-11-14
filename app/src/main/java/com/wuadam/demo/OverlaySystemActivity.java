@@ -56,10 +56,7 @@ public class OverlaySystemActivity extends AppCompatActivity {
             }
         });
 
-        FloatingViewConfig config = new FloatingViewConfig.Builder().build();
-        floatingView = new FloatingView(this, R.layout.view_floating, config);
-        floatingView.showOverlaySystem();
-        floatingView.setOnClickListener(onClickListener);
+        showFloatingView();
     }
 
     @Override
