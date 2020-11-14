@@ -141,6 +141,48 @@ floatingView.setOnClickListener(new View.OnClickListener() {
 });
 ```
 
+## Hold the Floating View object, to change the content logically
+[demo](/app/src/main/java/com/wuadam/demo/AdvancedControlActivity.java)
+
+```java
+LayoutInflater mInflater = LayoutInflater.from(AdvancedControlActivity.this);
+View floatingView = mInflater.inflate(R.layout.view_advanced_control, null, false);
+floatingView = new FloatingView(AdvancedControlActivity.this, floatingView, config);
+```
+
+## Set OnClickListener for subviews of Floating View
+[demo](/app/src/main/java/com/wuadam/demo/AdvancedControlActivity.java)
+
+```java
+LayoutInflater mInflater = LayoutInflater.from(AdvancedControlActivity.this);
+View floatingView = mInflater.inflate(R.layout.view_advanced_control, null, false);
+floatingView = new FloatingView(AdvancedControlActivity.this, floatingView, config);
+
+final View vTop = floatingView.findViewById(R.id.v_top);
+final View vMiddle = floatingView.findViewById(R.id.v_middle);
+final View vBottom = floatingView.findViewById(R.id.v_bottom);
+final TextView tvTime = floatingView.findViewById(R.id.tv_time);
+
+
+View.OnClickListener onClickListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if (v == vTop) {
+            Toast.makeText(AdvancedControlActivity.this, "Top clicked", Toast.LENGTH_SHORT).show();
+        } else if (v == vMiddle) {
+            Toast.makeText(AdvancedControlActivity.this, "Middle clicked", Toast.LENGTH_SHORT).show();
+        } else if (v == vBottom) {
+            Toast.makeText(AdvancedControlActivity.this, "Bottom clicked", Toast.LENGTH_SHORT).show();
+        }
+        tvTime.setText(String.valueOf(System.currentTimeMillis()));
+    }
+};
+
+vTop.setOnClickListener(onClickListener);
+vMiddle.setOnClickListener(onClickListener);
+vBottom.setOnClickListener(onClickListener);
+```
+
 ## Proguard
 No need to add more proguard rules, `consumerProguardFiles` has already handled library proguard rules.
 

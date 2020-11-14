@@ -17,6 +17,7 @@
 * 可随着手指拖动
 * 可指定9个初始位置
 * 可指定初始paddings
+* 可持有浮动View对象，从而可以动态修改View的内容，并可为浮动View的各个子控件单独设置OnClickListener
 
 ## Usage
 
@@ -137,6 +138,48 @@ floatingView.setOnClickListener(new View.OnClickListener() {
         
     }
 });
+```
+
+## 持有浮动控件的View对象，可动态修改浮动View的内容
+[demo](/app/src/main/java/com/wuadam/demo/AdvancedControlActivity.java)
+
+```java
+LayoutInflater mInflater = LayoutInflater.from(AdvancedControlActivity.this);
+View floatingView = mInflater.inflate(R.layout.view_advanced_control, null, false);
+floatingView = new FloatingView(AdvancedControlActivity.this, floatingView, config);
+```
+
+## 为浮动View的各个子控件单独设置OnClickListener
+[demo](/app/src/main/java/com/wuadam/demo/AdvancedControlActivity.java)
+
+```java
+LayoutInflater mInflater = LayoutInflater.from(AdvancedControlActivity.this);
+View floatingView = mInflater.inflate(R.layout.view_advanced_control, null, false);
+floatingView = new FloatingView(AdvancedControlActivity.this, floatingView, config);
+
+final View vTop = floatingView.findViewById(R.id.v_top);
+final View vMiddle = floatingView.findViewById(R.id.v_middle);
+final View vBottom = floatingView.findViewById(R.id.v_bottom);
+final TextView tvTime = floatingView.findViewById(R.id.tv_time);
+
+
+View.OnClickListener onClickListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if (v == vTop) {
+            Toast.makeText(AdvancedControlActivity.this, "Top clicked", Toast.LENGTH_SHORT).show();
+        } else if (v == vMiddle) {
+            Toast.makeText(AdvancedControlActivity.this, "Middle clicked", Toast.LENGTH_SHORT).show();
+        } else if (v == vBottom) {
+            Toast.makeText(AdvancedControlActivity.this, "Bottom clicked", Toast.LENGTH_SHORT).show();
+        }
+        tvTime.setText(String.valueOf(System.currentTimeMillis()));
+    }
+};
+
+vTop.setOnClickListener(onClickListener);
+vMiddle.setOnClickListener(onClickListener);
+vBottom.setOnClickListener(onClickListener);
 ```
 
 ## Proguard
