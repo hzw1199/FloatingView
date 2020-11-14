@@ -18,6 +18,9 @@
         <activity
             android:name=".OverlayViewGroupActivity"
             android:label="OVERLAY_VIEWGROUP"></activity>
+        <activity
+            android:name=".AdvancedControlActivity"
+            android:label="ADVANCED_CONTROL"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

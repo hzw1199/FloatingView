@@ -39,10 +39,21 @@ public class FloatingView {
     }
 
     public FloatingView(Context context, int resource, FloatingViewConfig config) {
-        this.mContext = context;
-        mWindowManager = (WindowManager) context.getSystemService(WINDOW_SERVICE);
+        this(context, config);
         LayoutInflater mInflater = LayoutInflater.from(context);
         rootView = mInflater.inflate(resource, null, false);
+        measure();
+    }
+
+    public FloatingView(Context context, View view, FloatingViewConfig config) {
+        this(context, config);
+        rootView = view;
+        measure();
+    }
+
+    private FloatingView(Context context, FloatingViewConfig config) {
+        this.mContext = context;
+        mWindowManager = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 
         this.config = config;
         if (config.displayWidth == Integer.MAX_VALUE) {
@@ -57,7 +68,9 @@ public class FloatingView {
         config.paddingTop = dp2px(config.paddingTop);
         config.paddingRight = dp2px(config.paddingRight);
         config.paddingBottom = dp2px(config.paddingBottom);
+    }
 
+    private void measure() {
         rootView.measure(0, 0);
         width = rootView.getMeasuredWidth();
         height = rootView.getMeasuredHeight();
@@ -259,7 +272,7 @@ public class FloatingView {
             float[] temp = new float[]{0, 0};
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (gestureDetector.onTouchEvent(motionEvent)){
+                if (onClickListener != null && gestureDetector.onTouchEvent(motionEvent)){
                     return true;
                 }
                 switch (motionEvent.getAction()){
@@ -284,6 +297,8 @@ public class FloatingView {
                             int y = (int)(motionEvent.getRawY() - temp[1]);
                             moveWindow(x, y);
                         }
+                        break;
+                    case MotionEvent.ACTION_UP:
                         break;
                 }
                 return true;

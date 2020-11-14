@@ -10,18 +10,18 @@
         android:id="@+id/btn_system"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        app:layout_constraintVertical_chainStyle="packed"
         android:onClick="onClick"
-        android:text="overlay_system"
+        android:text="overlay system"
         app:layout_constraintBottom_toTopOf="@+id/btn_activity"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/btn_activity"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:onClick="onClick"
-        android:text="overlay_activity"
+        android:text="overlay activity"
         app:layout_constraintBottom_toTopOf="@+id/btn_viewgroup"
         app:layout_constraintTop_toBottomOf="@id/btn_system" />
 
@@ -30,8 +30,18 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:onClick="onClick"
-        android:text="overlay_viewgroup"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="overlay viewgroup"
+        app:layout_constraintBottom_toBottomOf="@id/btn_advanced"
         app:layout_constraintTop_toBottomOf="@id/btn_activity" />
+
+    <Button
+        android:id="@+id/btn_advanced"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onClick"
+        android:text="advanced control"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_viewgroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

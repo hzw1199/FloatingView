@@ -28,5 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, OverlayViewGroupActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.btn_advanced) {
+            Intent intent = new Intent(MainActivity.this, AdvancedControlActivity.class);
+            startActivity(intent);
+        }
     }
 }
