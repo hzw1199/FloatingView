@@ -135,6 +135,6 @@ public class AdvancedControlActivity extends AppCompatActivity {
         vMiddle.setOnClickListener(onClickListener);
         vBottom.setOnClickListener(onClickListener);
 
-        floatingView.showOverlaySystem(this);
+        floatingView.showOverlaySystem(this, "需要悬浮窗权限");
     }
 }

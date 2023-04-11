@@ -112,7 +112,7 @@ public class OverlaySystemActivity extends AppCompatActivity {
             floatingView.hide();
         }
         floatingView = new FloatingView(OverlaySystemActivity.this, R.layout.view_floating, config);
-        floatingView.showOverlaySystem(this);
+        floatingView.showOverlaySystem(this, "需要悬浮窗权限");
         floatingView.setOnClickListener(onClickListener);
     }
 }

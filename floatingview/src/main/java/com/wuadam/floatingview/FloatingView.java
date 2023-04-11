@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -80,7 +81,7 @@ public class FloatingView {
      * 在最上层悬浮，Activity或者APP关闭，都可存在
      * 需要跳转到系统设置中，同意在其他APP上方显示遮盖后，才可以显示
      */
-    public void showOverlaySystem(Context context) {
+    public void showOverlaySystem(Context context, String deniedMessage) {
         if (isShowing) {
             return;
         }
@@ -101,7 +102,9 @@ public class FloatingView {
                 .onDenied(new Action<Void>() {
                     @Override
                     public void onAction(Void data) {
-                        Toast.makeText(mContext, "需要悬浮窗权限", Toast.LENGTH_SHORT).show();
+                        if (!TextUtils.isEmpty(deniedMessage)) {
+                            Toast.makeText(context, deniedMessage, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .start();
