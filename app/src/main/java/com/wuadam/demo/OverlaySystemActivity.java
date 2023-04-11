@@ -112,7 +112,7 @@ public class OverlaySystemActivity extends AppCompatActivity {
             floatingView.hide();
         }
         floatingView = new FloatingView(OverlaySystemActivity.this, R.layout.view_floating, config);
-        floatingView.showOverlaySystem();
+        floatingView.showOverlaySystem(this);
         floatingView.setOnClickListener(onClickListener);
     }
 }

@@ -135,6 +135,6 @@ public class AdvancedControlActivity extends AppCompatActivity {
         vMiddle.setOnClickListener(onClickListener);
         vBottom.setOnClickListener(onClickListener);
 
-        floatingView.showOverlaySystem();
+        floatingView.showOverlaySystem(this);
     }
 }

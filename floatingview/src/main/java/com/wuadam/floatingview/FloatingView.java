@@ -52,16 +52,16 @@ public class FloatingView {
     }
 
     private FloatingView(Context context, FloatingViewConfig config) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
         mWindowManager = (WindowManager) context.getSystemService(WINDOW_SERVICE);
 
         this.config = config;
         if (config.displayWidth == Integer.MAX_VALUE) {
-            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
             config.displayWidth = metrics.widthPixels;
         }
         if (config.displayHeight == Integer.MAX_VALUE) {
-            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
             config.displayHeight = (int) (metrics.heightPixels - 25 * metrics.density);
         }
         config.paddingLeft = dp2px(config.paddingLeft);
@@ -80,7 +80,7 @@ public class FloatingView {
      * 在最上层悬浮，Activity或者APP关闭，都可存在
      * 需要跳转到系统设置中，同意在其他APP上方显示遮盖后，才可以显示
      */
-    public void showOverlaySystem() {
+    public void showOverlaySystem(Context context) {
         if (isShowing) {
             return;
         }
@@ -89,7 +89,7 @@ public class FloatingView {
         initPosition();
         initWindowView();
 
-        AndPermission.with(mContext)
+        AndPermission.with(context)
                 .overlay()
                 .onGranted(new Action<Void>() {
                     @Override
@@ -257,7 +257,7 @@ public class FloatingView {
     }
 
     private void initWindowView(){
-        final GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener(){
+        final GestureDetector gestureDetector = new GestureDetector(null, new GestureDetector.SimpleOnGestureListener(){
 
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
