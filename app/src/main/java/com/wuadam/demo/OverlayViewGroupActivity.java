@@ -115,6 +115,7 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
                 .setPaddingRight(paddingRight)
                 .setPaddingBottom(paddingBottom)
                 .setGravity(gravity)
+                .setScaleHandlerId(R.id.fl)
                 .setDisplayWidth(lyViewGroup.getWidth())
                 .setDisplayHeight(lyViewGroup.getHeight())
                 .build();

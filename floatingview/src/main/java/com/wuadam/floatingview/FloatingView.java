@@ -11,6 +11,7 @@ import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -21,6 +22,8 @@ import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 
 import static android.content.Context.WINDOW_SERVICE;
+
+import androidx.annotation.NonNull;
 
 public class FloatingView {
     private Context mContext;
@@ -34,6 +37,11 @@ public class FloatingView {
 
     private FloatingViewConfig config;
     private int width, height;
+    private float scale = 1.0f;
+    private float lastScaleFactor = 0f;
+    private static final float MIN_ZOOM = 1.0f;
+    private static final float MAX_ZOOM = 4.0f;
+    private View scaleHandler;
 
     private enum TYPE{
         OVERLAY_SYSTEM, OVERLAY_ACTIVITY, OVERLAY_VIEWGROUP
@@ -46,12 +54,14 @@ public class FloatingView {
         LayoutInflater mInflater = LayoutInflater.from(context);
         rootView = mInflater.inflate(resource, rootViewWrap, true);
         measure();
+        initScale();
     }
 
     public FloatingView(Context context, View view, FloatingViewConfig config) {
         this(context, config);
         rootView = view;
         measure();
+        initScale();
     }
 
     private FloatingView(Context context, FloatingViewConfig config) {
@@ -71,6 +81,14 @@ public class FloatingView {
         config.paddingTop = dp2px(config.paddingTop);
         config.paddingRight = dp2px(config.paddingRight);
         config.paddingBottom = dp2px(config.paddingBottom);
+    }
+
+    private void initScale() {
+        if (config.scaleHandler != null) {
+            scaleHandler = config.scaleHandler;
+        } else if (config.scaleHandlerId != 0) {
+            scaleHandler = rootView.findViewById(config.scaleHandlerId);
+        }
     }
 
     private void measure() {
@@ -273,12 +291,39 @@ public class FloatingView {
             }
         });
 
+        final ScaleGestureDetector scaleDetector = new ScaleGestureDetector(mContext, new ScaleGestureDetector.OnScaleGestureListener() {
+            @Override
+            public boolean onScale(@NonNull ScaleGestureDetector detector) {
+                float scaleFactor = detector.getScaleFactor();
+                if (lastScaleFactor == 0 || (Math.signum(scaleFactor) == Math.signum(lastScaleFactor))) {
+                    scale *= scaleFactor;
+                    scale = Math.max(MIN_ZOOM, Math.min(scale, MAX_ZOOM));
+                    lastScaleFactor = scaleFactor;
+                } else {
+                    lastScaleFactor = 0;
+                }
+                scaleWindow();
+                return true;
+            }
+
+            @Override
+            public boolean onScaleBegin(@NonNull ScaleGestureDetector detector) {
+                return true;
+            }
+
+            @Override
+            public void onScaleEnd(@NonNull ScaleGestureDetector detector) {
+            }
+        });
         rootView.setOnTouchListener(new View.OnTouchListener() {
             float[] temp = new float[]{0, 0};
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (onClickListener != null && gestureDetector.onTouchEvent(motionEvent)){
                     return true;
+                }
+                if (scaleHandler != null) {
+                    scaleDetector.onTouchEvent(motionEvent);
                 }
                 switch (motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
@@ -336,6 +381,22 @@ public class FloatingView {
             mParamsWindowManager.y = y - statusBarHeight;
             updateWindowSize();
         }
+    }
+
+    private void scaleWindow() {
+        ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
+        layoutParams.width = (int) (width * scale);
+        layoutParams.height = (int) (height * scale);
+        scaleHandler.requestLayout();
+
+//        View childView = ((ViewGroup)rootView).getChildAt(0);
+//        ViewGroup.LayoutParams layoutParams = childView.getLayoutParams();
+//        layoutParams.width = (int) (width * scale);
+//        layoutParams.height = (int) (height * scale);
+//        childView.requestLayout();
+
+//        rootView.setScaleX(scale);
+//        rootView.setScaleY(scale);
     }
 
     private void updateWindowSize(){

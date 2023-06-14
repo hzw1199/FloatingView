@@ -112,6 +112,7 @@ public class OverlayActivityActivity extends AppCompatActivity {
                 .setPaddingRight(paddingRight)
                 .setPaddingBottom(paddingBottom)
                 .setGravity(gravity)
+                .setScaleHandlerId(R.id.fl)
                 .build();
         if (floatingView != null) {
             floatingView.hide();
