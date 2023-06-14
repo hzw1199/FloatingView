@@ -41,8 +41,10 @@ public class FloatingView {
 
     public FloatingView(Context context, int resource, FloatingViewConfig config) {
         this(context, config);
+        // attach到rootViewWrap上，防止resource布局中最外层定义的宽高失效
+        FrameLayout rootViewWrap = new FrameLayout(context);
         LayoutInflater mInflater = LayoutInflater.from(context);
-        rootView = mInflater.inflate(resource, null, false);
+        rootView = mInflater.inflate(resource, rootViewWrap, true);
         measure();
     }
 
