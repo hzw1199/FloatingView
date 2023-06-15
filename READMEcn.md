@@ -15,6 +15,7 @@
 * ```OverlayActivity```模式下只在指定的Activity上显示
 * ```OverlayViewGroup```模式下只在指定的ViewGroup上显示
 * 可随着手指拖动
+* 可双指缩放（可开关）
 * 可指定9个初始位置
 * 可指定初始paddings
 * 可持有浮动View对象，从而可以动态修改View的内容，并可为浮动View的各个子控件单独设置OnClickListener
@@ -38,7 +39,7 @@ allprojects {
 
 ```
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.0.0'
+    compile 'com.github.hzw1199:FloatingView:1.4.0'
 }
 ```
 

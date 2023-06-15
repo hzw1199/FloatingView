@@ -17,8 +17,10 @@
 * ```OverlayActivity```: Display FloatingView above certain Activity
 * ```OverlayViewGroup```: Display FloatingView above certain ViewGroup
 * Move FloatingView with finger
+* Scale FloatingView with two fingers (can be disabled)
 * Define 9 initial position for FloatingView
 * Define initial paddings for FloatingView
+* Hold FloatingView object, so that you can change the content of FloatingView dynamically, and set OnClickListener for each child view of FloatingView
 
 # Usage
 
@@ -39,7 +41,7 @@ Add the dependency in the form:
 
 ```
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.0.0'
+    compile 'com.github.hzw1199:FloatingView:1.4.0'
 }
 ```
 
