@@ -1,12 +1,13 @@
 package com.wuadam.demo;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.wuadam.floatingview.FloatingView;
 import com.wuadam.floatingview.FloatingViewConfig;
@@ -100,6 +101,14 @@ public class OverlaySystemActivity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener onDoubleClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(OverlaySystemActivity.this, "FloatingView double clicked", Toast.LENGTH_SHORT).show();
+            floatingView.full();
+        }
+    };
+
     private void showFloatingView() {
         FloatingViewConfig config = new FloatingViewConfig.Builder()
                 .setPaddingLeft(paddingLeft)
@@ -115,5 +124,6 @@ public class OverlaySystemActivity extends AppCompatActivity {
         floatingView = new FloatingView(OverlaySystemActivity.this, R.layout.view_floating, config);
         floatingView.showOverlaySystem(this, "需要悬浮窗权限");
         floatingView.setOnClickListener(onClickListener);
+        floatingView.setOnDoubleClickListener(onDoubleClickListener);
     }
 }

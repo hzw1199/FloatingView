@@ -105,6 +105,14 @@ public class OverlayActivityActivity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener onDoubleClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(OverlayActivityActivity.this, "FloatingView double clicked", Toast.LENGTH_SHORT).show();
+            floatingView.full();
+        }
+    };
+
     private void showFloatingView() {
         FloatingViewConfig config = new FloatingViewConfig.Builder()
                 .setPaddingLeft(paddingLeft)
@@ -120,5 +128,6 @@ public class OverlayActivityActivity extends AppCompatActivity {
         floatingView = new FloatingView(OverlayActivityActivity.this, R.layout.view_floating, config);
         floatingView.showOverlayActivity();
         floatingView.setOnClickListener(onClickListener);
+        floatingView.setOnDoubleClickListener(onDoubleClickListener);
     }
 }

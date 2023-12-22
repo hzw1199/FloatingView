@@ -1,13 +1,14 @@
 package com.wuadam.demo;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.wuadam.floatingview.FloatingView;
 import com.wuadam.floatingview.FloatingViewConfig;
@@ -108,6 +109,14 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener onDoubleClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(OverlayViewGroupActivity.this, "FloatingView double clicked", Toast.LENGTH_SHORT).show();
+            floatingView.full();
+        }
+    };
+
     private void showFloatingView() {
         FloatingViewConfig config = new FloatingViewConfig.Builder()
                 .setPaddingLeft(paddingLeft)
@@ -125,5 +134,6 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
         floatingView = new FloatingView(OverlayViewGroupActivity.this, R.layout.view_floating, config);
         floatingView.showOverlayViewGroup(lyViewGroup);
         floatingView.setOnClickListener(onClickListener);
+        floatingView.setOnDoubleClickListener(onDoubleClickListener);
     }
 }

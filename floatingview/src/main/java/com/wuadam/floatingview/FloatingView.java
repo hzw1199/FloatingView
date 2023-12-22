@@ -31,7 +31,7 @@ public class FloatingView {
     private WindowManager.LayoutParams mParamsWindowManager;
     private ViewGroup.MarginLayoutParams mParamsViewGroup;
     private View rootView;
-    private View.OnClickListener onClickListener;
+    private View.OnClickListener onClickListener, onDoubleClickListener;
     private boolean isShowing = false;
     private TYPE type = TYPE.OVERLAY_SYSTEM;
 
@@ -190,6 +190,32 @@ public class FloatingView {
         this.onClickListener = onClickListener;
     }
 
+    public void setOnDoubleClickListener(View.OnClickListener onClickListener) {
+        this.onDoubleClickListener = onClickListener;
+    }
+
+    public void full() {
+        if (type == TYPE.OVERLAY_VIEWGROUP) {
+            mParamsViewGroup.setMargins(0, 0, 0, 0);
+
+            ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
+            layoutParams.width = config.displayWidth;
+            layoutParams.height = config.displayHeight;
+            rootView.requestLayout();
+        } else if (type == TYPE.OVERLAY_SYSTEM || type == TYPE.OVERLAY_ACTIVITY){
+            Rect r = new Rect();
+            rootView.getWindowVisibleDisplayFrame(r);
+            int statusBarHeight = r.top;
+            mParamsWindowManager.x = 0;
+            mParamsWindowManager.y = - statusBarHeight;
+
+            ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
+            layoutParams.width = config.displayWidth;
+            layoutParams.height = config.displayHeight;
+            updateWindowSize();
+        }
+    }
+
     private void initParams(){
         if (type == TYPE.OVERLAY_VIEWGROUP) {
             if (mParamsViewGroup == null) {
@@ -283,9 +309,17 @@ public class FloatingView {
         final GestureDetector gestureDetector = new GestureDetector(null, new GestureDetector.SimpleOnGestureListener(){
 
             @Override
-            public boolean onSingleTapUp(MotionEvent e) {
+            public boolean onSingleTapConfirmed(MotionEvent e) {
                 if (onClickListener != null) {
                     onClickListener.onClick(rootView);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                if (onDoubleClickListener != null) {
+                    onDoubleClickListener.onClick(rootView);
                 }
                 return true;
             }
@@ -319,7 +353,7 @@ public class FloatingView {
             float[] temp = new float[]{0, 0};
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (onClickListener != null && gestureDetector.onTouchEvent(motionEvent)){
+                if ((onClickListener != null || onDoubleClickListener != null) && gestureDetector.onTouchEvent(motionEvent)){
                     return true;
                 }
                 if (scaleHandler != null) {

@@ -115,7 +115,7 @@ public class FloatingViewConfig {
          *
          * @param scaleHandlerId
          */
-        public Builder setScaleHandlerId(int scaleHandlerId) {
+        public Builder setScaleHandlerId(@IdRes int scaleHandlerId) {
             this.scaleHandlerId = scaleHandlerId;
             return this;
         }
