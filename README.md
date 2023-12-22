@@ -18,6 +18,7 @@
 * ```OverlayViewGroup```: Display FloatingView above certain ViewGroup
 * Move FloatingView with finger
 * Scale FloatingView with two fingers (can be disabled)
+* Listen to click and double-click events
 * Define 9 initial position for FloatingView
 * Define initial paddings for FloatingView
 * Hold FloatingView object, so that you can change the content of FloatingView dynamically, and set OnClickListener for each child view of FloatingView
@@ -41,7 +42,7 @@ Add the dependency in the form:
 
 ```
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.4.0'
+    compile 'com.github.hzw1199:FloatingView:1.5.0'
 }
 ```
 
@@ -141,6 +142,23 @@ floatingView.setOnClickListener(new View.OnClickListener() {
         
     }
 });
+```
+
+Double-click event
+
+```java
+floatingView.setOnDoubleClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        
+    }
+});
+```
+
+Maximize zoom
+
+```java
+floatingView.full();
 ```
 
 ## Hold the Floating View object, to change the content logically

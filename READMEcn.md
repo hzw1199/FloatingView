@@ -16,6 +16,7 @@
 * ```OverlayViewGroup```模式下只在指定的ViewGroup上显示
 * 可随着手指拖动
 * 可双指缩放（可开关）
+* 可监听单击和双击事件
 * 可指定9个初始位置
 * 可指定初始paddings
 * 可持有浮动View对象，从而可以动态修改View的内容，并可为浮动View的各个子控件单独设置OnClickListener
@@ -39,7 +40,7 @@ allprojects {
 
 ```
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.4.0'
+    compile 'com.github.hzw1199:FloatingView:1.5.0'
 }
 ```
 
@@ -139,6 +140,23 @@ floatingView.setOnClickListener(new View.OnClickListener() {
         
     }
 });
+```
+
+双击事件
+
+```java
+floatingView.setOnDoubleClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        
+    }
+});
+```
+
+最大化缩放
+
+```java
+floatingView.full();
 ```
 
 ## 持有浮动控件的View对象，可动态修改浮动View的内容
