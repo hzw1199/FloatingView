@@ -75,7 +75,7 @@ public class FloatingView {
         }
         if (config.displayHeight == Integer.MAX_VALUE) {
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-            config.displayHeight = (int) (metrics.heightPixels - 25 * metrics.density);
+            config.displayHeight = metrics.heightPixels;
         }
         config.paddingLeft = dp2px(config.paddingLeft);
         config.paddingTop = dp2px(config.paddingTop);
@@ -197,10 +197,7 @@ public class FloatingView {
     public void full() {
         if (type == TYPE.OVERLAY_VIEWGROUP) {
             mParamsViewGroup.setMargins(0, 0, 0, 0);
-
-            ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
-            layoutParams.width = config.displayWidth;
-            layoutParams.height = config.displayHeight;
+            resetLayoutParamsForFull();
             rootView.requestLayout();
         } else if (type == TYPE.OVERLAY_SYSTEM || type == TYPE.OVERLAY_ACTIVITY){
             Rect r = new Rect();
@@ -208,11 +205,22 @@ public class FloatingView {
             int statusBarHeight = r.top;
             mParamsWindowManager.x = 0;
             mParamsWindowManager.y = - statusBarHeight;
-
-            ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
-            layoutParams.width = config.displayWidth;
-            layoutParams.height = config.displayHeight;
+            resetLayoutParamsForFull();
             updateWindowSize();
+        }
+    }
+
+    private void resetLayoutParamsForFull() {
+        ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
+        int widthOri = layoutParams.width;
+        int heightOri = layoutParams.height;
+        float aspectRatioOri = ((float) widthOri) / heightOri;
+        if (aspectRatioOri > (float) config.displayWidth / config.displayHeight) {
+            layoutParams.width = config.displayWidth;
+            layoutParams.height = (int) (config.displayWidth / aspectRatioOri);
+        } else {
+            layoutParams.height = config.displayHeight;
+            layoutParams.width = (int) (config.displayHeight * aspectRatioOri);
         }
     }
 
@@ -419,8 +427,13 @@ public class FloatingView {
 
     private void scaleWindow() {
         ViewGroup.LayoutParams layoutParams = scaleHandler.getLayoutParams();
-        layoutParams.width = (int) (width * scale);
+
+        int widthOri = layoutParams.width;
+        int heightOri = layoutParams.height;
+        float aspectRatioOri = ((float) widthOri) / heightOri;
+
         layoutParams.height = (int) (height * scale);
+        layoutParams.width = (int) (layoutParams.height * aspectRatioOri);
         scaleHandler.requestLayout();
 
 //        View childView = ((ViewGroup)rootView).getChildAt(0);
