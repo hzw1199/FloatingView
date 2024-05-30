@@ -1,14 +1,13 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.hzw1199'
+apply from: 'maven_publish.gradle'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
 
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 33
+        minSdk 14
+        targetSdk 33
         consumerProguardFiles 'proguard-rules.pro'
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -23,6 +22,14 @@ android {
     }
     namespace 'com.wuadam.floatingview'
 
+    // https://developer.android.com/build/publish-library/configure-pub-variants?hl=zh-cn#single-pub-var
+    // https://stackoverflow.com/a/71366104
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {

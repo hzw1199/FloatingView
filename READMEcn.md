@@ -40,7 +40,7 @@ allprojects {
 
 ```
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.5.0'
+    compile 'com.github.hzw1199:FloatingView:1.6.0'
 }
 ```
 
