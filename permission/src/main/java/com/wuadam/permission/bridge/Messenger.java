@@ -19,6 +19,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 
 import com.wuadam.permission.AndPermission;
 
@@ -42,7 +43,11 @@ class Messenger extends BroadcastReceiver {
 
     public void register(String suffix) {
         IntentFilter filter = new IntentFilter(AndPermission.bridgeAction(mContext, suffix));
-        mContext.registerReceiver(this, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mContext.registerReceiver(this, filter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(this, filter);
+        }
     }
 
     public void unRegister() {

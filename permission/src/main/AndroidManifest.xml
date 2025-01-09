@@ -24,6 +24,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="${applicationId}.andpermission.bridge" />
+    <permission-group android:name="${applicationId}.andpermission"/>
 
     <application>
         <service
