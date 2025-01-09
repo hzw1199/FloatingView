@@ -18,8 +18,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
+import com.wuadam.permission.Action;
+import com.wuadam.permission.AndPermission;
 
 import static android.content.Context.WINDOW_SERVICE;
 

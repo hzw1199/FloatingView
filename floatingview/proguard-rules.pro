@@ -21,4 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 # AndPermission
--dontwarn com.yanzhenjie.permission.**
+-dontwarn com.wuadam.permission.**

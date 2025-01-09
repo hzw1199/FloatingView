@@ -1,1 +1,1 @@
-include ':app', ':floatingview'
+include ':app', ':floatingview', ':permission'
