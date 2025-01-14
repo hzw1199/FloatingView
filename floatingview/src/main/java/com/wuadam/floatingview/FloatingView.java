@@ -1,9 +1,12 @@
 package com.wuadam.floatingview;
 
+import static android.content.Context.WINDOW_SERVICE;
+
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -17,11 +20,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
-import com.wuadam.permission.Action;
-import com.wuadam.permission.AndPermission;
-
-import static android.content.Context.WINDOW_SERVICE;
 
 import androidx.annotation.NonNull;
 
@@ -98,6 +96,16 @@ public class FloatingView {
     }
 
     /**
+     * 检查是否有悬浮窗权限
+     */
+    private static boolean checkFloatingWindowPermission(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return Settings.canDrawOverlays(context);
+        }
+        return true;
+    }
+
+    /**
      * 在最上层悬浮，Activity或者APP关闭，都可存在
      * 需要跳转到系统设置中，同意在其他APP上方显示遮盖后，才可以显示
      */
@@ -105,29 +113,18 @@ public class FloatingView {
         if (isShowing) {
             return;
         }
+        if (!checkFloatingWindowPermission(context)) {
+            if (!TextUtils.isEmpty(deniedMessage)) {
+                Toast.makeText(context, deniedMessage, Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
         type = TYPE.OVERLAY_SYSTEM;
         initParams();
         initPosition();
         initWindowView();
-
-        AndPermission.with(context)
-                .overlay()
-                .onGranted(new Action<Void>() {
-                    @Override
-                    public void onAction(Void data) {
-                        isShowing = true;
-                        mWindowManager.addView(rootView, mParamsWindowManager);
-                    }
-                })
-                .onDenied(new Action<Void>() {
-                    @Override
-                    public void onAction(Void data) {
-                        if (!TextUtils.isEmpty(deniedMessage)) {
-                            Toast.makeText(context, deniedMessage, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .start();
+        isShowing = true;
+        mWindowManager.addView(rootView, mParamsWindowManager);
     }
 
     /**
