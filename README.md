@@ -29,7 +29,7 @@
 
 Add it in your build.gradle at the end of repositories:  
 
-```
+```groovy
 allprojects {
     repositories {
         ...
@@ -40,9 +40,9 @@ allprojects {
 
 Add the dependency in the form:  
 
-```
+```groovy
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.6.0'
+    compile 'com.github.hzw1199:FloatingView:1.7.0'
 }
 ```
 
@@ -51,6 +51,11 @@ dependencies {
 Configure and display
 
 * ```OverlaySystem``` mode
+
+AndroidManifest.xml:
+```xml
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+```
 
 onCreate:
 
@@ -68,7 +73,7 @@ floatingView.showOverlaySystem();
 
 onDestroy:
 
-```
+```java
 if (floatingView != null) {
     floatingView.hide();
 }
@@ -92,7 +97,7 @@ floatingView.showOverlayActivity();
 
 onDetachedFromWindow:
 
-```
+```java
 if (floatingView != null) {
     floatingView.hide();
 }
@@ -123,7 +128,7 @@ lyViewGroup.post(new Runnable() {
 
 onDestroy:
 
-```
+```java
 if (floatingView != null) {
     floatingView.hide();
 }

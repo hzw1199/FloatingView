@@ -6,7 +6,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.hzw1199'
             artifactId = 'FloatingView'
-            version = '1.6.0'
+            version = '1.7.0'
 
             afterEvaluate {
                 from components.release

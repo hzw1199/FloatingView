@@ -27,7 +27,7 @@
 
 在project的build.gradle中加入以下语句:  
 
-```
+```groovy
 allprojects {
     repositories {
         ...
@@ -38,9 +38,9 @@ allprojects {
 
 在module的build.gradle中加入以下语句:  
 
-```
+```groovy
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.6.0'
+    compile 'com.github.hzw1199:FloatingView:1.7.0'
 }
 ```
 
@@ -49,6 +49,11 @@ dependencies {
 创建配置并显示
 
 * ```OverlaySystem```模式
+
+AndroidManifest.xml:
+```xml
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+```
 
 onCreate:
 
@@ -66,7 +71,7 @@ floatingView.showOverlaySystem();
 
 onDestroy:
 
-```
+```java
 if (floatingView != null) {
     floatingView.hide();
 }
@@ -90,7 +95,7 @@ floatingView.showOverlayActivity();
 
 onDetachedFromWindow:
 
-```
+```java
 if (floatingView != null) {
     floatingView.hide();
 }
@@ -121,7 +126,7 @@ lyViewGroup.post(new Runnable() {
 
 onDestroy:
 
-```
+```java
 if (floatingView != null) {
     floatingView.hide();
 }
