@@ -83,7 +83,10 @@ public class AdvancedControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (floatingView != null) {
-                    floatingView.showOverlaySystem(AdvancedControlActivity.this, "need permission");
+                    boolean res = floatingView.showOverlaySystem(AdvancedControlActivity.this);
+                    if (!res) {
+                            Toast.makeText(AdvancedControlActivity.this, "need permission", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     showFloatingView();
                 }
@@ -166,7 +169,10 @@ public class AdvancedControlActivity extends AppCompatActivity {
         vMiddle.setOnClickListener(onClickListener);
         vBottom.setOnClickListener(onClickListener);
 
-        floatingView.showOverlaySystem(AdvancedControlActivity.this, "need permission");
+        boolean res = floatingView.showOverlaySystem(AdvancedControlActivity.this);
+        if (!res) {
+            Toast.makeText(AdvancedControlActivity.this, "need permission", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

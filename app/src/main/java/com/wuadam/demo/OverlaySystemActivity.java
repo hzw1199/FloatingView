@@ -81,7 +81,10 @@ public class OverlaySystemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (floatingView != null) {
-                    floatingView.showOverlaySystem(OverlaySystemActivity.this, "need permission");
+                    boolean res = floatingView.showOverlaySystem(OverlaySystemActivity.this);
+                    if (!res) {
+                        Toast.makeText(OverlaySystemActivity.this, "need permission", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     showFloatingView();
                 }
@@ -153,7 +156,10 @@ public class OverlaySystemActivity extends AppCompatActivity {
             floatingView.hide();
         }
         floatingView = new FloatingView(OverlaySystemActivity.this, R.layout.view_floating, config);
-        floatingView.showOverlaySystem(OverlaySystemActivity.this, "need permission");
+        boolean res = floatingView.showOverlaySystem(OverlaySystemActivity.this);
+        if (!res) {
+            Toast.makeText(OverlaySystemActivity.this, "need permission", Toast.LENGTH_SHORT).show();
+        }
         floatingView.setOnClickListener(onClickListener);
         floatingView.setOnDoubleClickListener(onDoubleClickListener);
     }

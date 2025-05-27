@@ -40,7 +40,7 @@ allprojects {
 
 ```groovy
 dependencies {
-    compile 'com.github.hzw1199:FloatingView:1.7.0'
+    compile 'com.github.hzw1199:FloatingView:1.8.0'
 }
 ```
 
