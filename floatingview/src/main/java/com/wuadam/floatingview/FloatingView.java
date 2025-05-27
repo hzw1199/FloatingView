@@ -32,6 +32,7 @@ public class FloatingView {
     private View.OnClickListener onClickListener, onDoubleClickListener;
     private boolean isShowing = false;
     private TYPE type = TYPE.OVERLAY_SYSTEM;
+    private TYPE typeLast = null;
 
     private FloatingViewConfig config;
     private int width, height;
@@ -40,6 +41,7 @@ public class FloatingView {
     private static final float MIN_ZOOM = 1.0f;
     private static final float MAX_ZOOM = 4.0f;
     private View scaleHandler;
+    private boolean hasInitPosition = false;
 
     private enum TYPE{
         OVERLAY_SYSTEM, OVERLAY_ACTIVITY, OVERLAY_VIEWGROUP
@@ -120,9 +122,12 @@ public class FloatingView {
             return;
         }
         type = TYPE.OVERLAY_SYSTEM;
+        handleReShow();
+
         initParams();
         initPosition();
         initWindowView();
+
         isShowing = true;
         mWindowManager.addView(rootView, mParamsWindowManager);
     }
@@ -137,9 +142,12 @@ public class FloatingView {
             return;
         }
         type = TYPE.OVERLAY_ACTIVITY;
+        handleReShow();
+
         initParams();
         initPosition();
         initWindowView();
+
         isShowing = true;
         mWindowManager.addView(rootView, mParamsWindowManager);
     }
@@ -155,15 +163,18 @@ public class FloatingView {
             return;
         }
         type = TYPE.OVERLAY_VIEWGROUP;
+        handleReShow();
+
         initParams();
         initPosition();
         initWindowView();
+
         isShowing = true;
         parent.addView(rootView, mParamsViewGroup);
     }
 
     /**
-     * 隐藏
+     * Hide
      */
     public void hide() {
         if (!isShowing) {
@@ -179,6 +190,10 @@ public class FloatingView {
         }
     }
 
+    /**
+     * Is showing
+     * @return
+     */
     public boolean isShowing() {
         return isShowing;
     }
@@ -191,6 +206,9 @@ public class FloatingView {
         this.onDoubleClickListener = onClickListener;
     }
 
+    /**
+     * Max size
+     */
     public void full() {
         if (type == TYPE.OVERLAY_VIEWGROUP) {
             mParamsViewGroup.setMargins(0, 0, 0, 0);
@@ -204,6 +222,13 @@ public class FloatingView {
             mParamsWindowManager.y = - statusBarHeight;
             resetLayoutParamsForFull();
             updateWindowSize();
+        }
+    }
+
+    private void handleReShow() {
+        if (type != typeLast) {
+            hasInitPosition = false;
+            typeLast = type;
         }
     }
 
@@ -255,6 +280,9 @@ public class FloatingView {
     }
 
     private void initPosition() {
+        if (hasInitPosition) {
+            return;
+        }
         int x = 0, y = 0;
         switch (config.gravity) {
             case LEFT_CENTER:
@@ -308,6 +336,7 @@ public class FloatingView {
 
             mParamsViewGroup.setMargins(marginLeft, marginTop, 0, 0);
         }
+        hasInitPosition = true;
     }
 
     private void initWindowView(){

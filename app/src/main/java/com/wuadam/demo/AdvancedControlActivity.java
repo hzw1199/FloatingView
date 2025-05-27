@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class AdvancedControlActivity extends AppCompatActivity {
     private SeekBar seekPaddingRight;
     private SeekBar seekPaddingBottom;
     private AppCompatSpinner spinnerGravity;
+    private Button btnHide, btnShow;
 
     private int paddingLeft, paddingTop, paddingRight, paddingBottom;
     private FloatingViewConfig.GRAVITY gravity = FloatingViewConfig.GRAVITY.LEFT_CENTER;
@@ -43,6 +45,8 @@ public class AdvancedControlActivity extends AppCompatActivity {
         seekPaddingRight = findViewById(R.id.seek_padding_right);
         seekPaddingBottom = findViewById(R.id.seek_padding_bottom);
         spinnerGravity = findViewById(R.id.spinner_gravity);
+        btnHide = findViewById(R.id.btn_hide);
+        btnShow = findViewById(R.id.btn_show);
 
         seekPaddingLeft.setOnSeekBarChangeListener(onSeekBarChangeListener);
         seekPaddingTop.setOnSeekBarChangeListener(onSeekBarChangeListener);
@@ -63,6 +67,26 @@ public class AdvancedControlActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        btnHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (floatingView != null) {
+                    floatingView.hide();
+                }
+            }
+        });
+
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (floatingView != null) {
+                    floatingView.showOverlaySystem(AdvancedControlActivity.this, "need permission");
+                } else {
+                    showFloatingView();
+                }
             }
         });
 

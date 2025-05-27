@@ -65,4 +65,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:entries="@array/gravity"></androidx.appcompat.widget.AppCompatSpinner>
+
+    <Button
+        android:id="@+id/btn_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="hide"/>
+
+    <Button
+        android:id="@+id/btn_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="show"/>
 </LinearLayout>

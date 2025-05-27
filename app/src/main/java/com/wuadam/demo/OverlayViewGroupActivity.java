@@ -3,6 +3,7 @@ package com.wuadam.demo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
     private SeekBar seekPaddingRight;
     private SeekBar seekPaddingBottom;
     private AppCompatSpinner spinnerGravity;
+    private Button btnHide, btnShow;
     private FrameLayout lyViewGroup;
 
     private int paddingLeft, paddingTop, paddingRight, paddingBottom;
@@ -36,6 +38,8 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
         seekPaddingRight = findViewById(R.id.seek_padding_right);
         seekPaddingBottom = findViewById(R.id.seek_padding_bottom);
         spinnerGravity = findViewById(R.id.spinner_gravity);
+        btnHide = findViewById(R.id.btn_hide);
+        btnShow = findViewById(R.id.btn_show);
         lyViewGroup = findViewById(R.id.ly_view_group);
 
         seekPaddingLeft.setOnSeekBarChangeListener(onSeekBarChangeListener);
@@ -64,6 +68,26 @@ public class OverlayViewGroupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 showFloatingView();
+            }
+        });
+
+        btnHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (floatingView != null) {
+                    floatingView.hide();
+                }
+            }
+        });
+
+        btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (floatingView != null) {
+                    floatingView.showOverlayViewGroup(lyViewGroup);
+                } else {
+                    showFloatingView();
+                }
             }
         });
     }
